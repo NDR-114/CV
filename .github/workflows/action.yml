@@ -1,0 +1,7 @@
+name: 'Compile LaTeX resume PDF'
+description: 'Commit to master to trigger auto build, pdf in out folder'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+
+# Code credit - https://medium.com/@danthelion/serverless-latex-resume-generation-with-github-actions-92e4ae9028a1

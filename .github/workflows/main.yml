@@ -30,3 +30,5 @@ jobs:
       uses: ad-m/github-push-action@master
       with:
          github_token: ${{ secrets.GITHUB_TOKEN }}
+
+# Code credit - https://medium.com/@danthelion/serverless-latex-resume-generation-with-github-actions-92e4ae9028a1
