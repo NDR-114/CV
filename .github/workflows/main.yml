@@ -1,0 +1,32 @@
+name: Compile CV
+
+on: push
+
+jobs:
+  generate_cv_job:
+    runs-on: ubuntu-latest
+    name: Compiles CV on push
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+    - name: Run CV generation
+      uses: ./ # Uses an action in the root directory
+
+    - name: Commit files
+      id: commit
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "github-actions"
+        git add --all
+        if [-z "$(git status --porcelain)"]; then
+           echo "::set-output name=push::false"
+        else
+           git commit -m "CV updated via GitHub Actions" -a
+           echo "::set-output name=push::true"
+        fi
+      shell: bash
+    - name: Push Changes
+      if: steps.commit.outputs.push == 'true'
+      uses: ad-m/github-push-action@master
+      with:
+         github_token: ${{ secrets.GITHUB_TOKEN }}
